@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+ 
+    
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <img class="logoimg" src="static\logo.png" alt="logo" height="80px" width="80px">
+      <div class="container">
+        <button class="navbar-toggler" id="navbar-toggler" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <!-- <a class="nav-link active" aria-current="page" href="/home">Home</a> -->
+              <a class="nav-link {% if request.path == '/home' or request.path == '/'%}active{% endif %}" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="/about">About Us</a> -->
+              <a class="nav-link {% if request.path == '/about' %}active{% endif %}" href="{{ url_for('about') }}">About Us</a>
+          
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="/contact">Contact Us</a> -->
+              <a class="nav-link {% if request.path == '/contact' %}active{% endif %}" href="{{ url_for('contact') }}">Contact Us</a>
+            </li>
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="/learn">Learn More</a> -->
+              <a class="nav-link {% if request.path == '/learn' %}active{% endif %}" href="{{ url_for('learn_more') }}">Learn More</a>
+            </li>
+          </ul>
+        </div>
+        <br>
+      </div>
+    </nav>
+  </header>
+
+
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <script>
+    // Function to handle form submission and display prediction result
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+  
+      var form = event.target; // Get the form element
+      var formData = new FormData(form); // Create FormData object
+  
+      // Send a POST request to the server with FormData
+      fetch('/predict', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        // Check if response is successful
+        if (response.ok) {
+          return response.text(); // Return response as text
+        } else {
+          throw new Error('Error occurred while processing the file');
+        }
+      })
+      .then(result => {
+        // Display the prediction result in the predictionResult div
+        document.getElementById('predictionResult').innerText = result;
+      })
+      .catch(error => {
+        // Display error message if an error occurs
+        console.error('Error:', error);
+        document.getElementById('predictionResult').innerText = 'Error occurred while processing the file';
+      });
+    });
+  </script>
+  
+  <script>
+    window.embeddedChatbotConfig = {
+      chatbotId: "eAOd3cJ0sScApo9S977fd",
+      domain: "www.chatbase.co"
+    }
+  </script>
+  <script src="https://www.chatbase.co/embed.min.js" chatbotId="eAOd3cJ0sScApo9S977fd" domain="www.chatbase.co" defer></script>
+</body>
+</html>

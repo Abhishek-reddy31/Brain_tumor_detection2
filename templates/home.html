@@ -1,0 +1,39 @@
+{% extends 'format.html' %}
+
+{% block title %}Image Prediction{% endblock %}
+
+{% block content %}
+    <br><br><br><br><br><br>
+    <img class="homeimg" src="static\image_home.png" alt="Image" height="350" width="500">
+    <h1>Detect Brain Tumors<br> with Advanced MRI<br> Analysis</h1>
+    <p>Our state-of-the-art system uses CNN technology to accurately analyze MRI images and <br>provide fast and reliable brain tumor diagnoses.</p>
+    <div class="button-container">
+      <form id="uploadForm" action="/predict" method="post" enctype="multipart/form-data">
+        <!-- Hide the original file input -->
+        <input type="file" name="file" id="uploadInput" accept="image/*" style="display: none;">
+        <!-- Create a styled label -->
+        <label for="uploadInput" id="uploadLabel" class="upload-button">Upload Image</label>
+        <script>
+          // Get the file input element
+          var fileInput = document.getElementById('uploadInput');
+        
+          // Add event listener for file input change
+          fileInput.addEventListener('change', function() {
+            // Check if a file is selected
+            if (fileInput.files.length > 0) {
+              // Display alert message
+              alert('Image uploaded! Click on Predict..');
+            }
+          });
+        </script>
+        
+        <button type="submit" class="upload-button">Predict</button>
+        <div id="predictionResult"></div>
+      </form>
+
+
+      
+    </div>
+  
+  {% endblock %}
+  

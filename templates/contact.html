@@ -1,0 +1,59 @@
+{% extends 'format.html' %}
+
+{% block title %}More - Brain Tumor Detection{% endblock %}
+
+{% block content %}
+<section class="contact-section">
+    <div class="container">
+      <div class="contact-content">
+        <h1 class="contact-heading">Contact Us</h1>
+        <p>We'd love to hear from you! Reach out to us with any questions, feedback, or inquiries.</p>
+        <div class="contact-form">
+          <form id="contact-form" method="post">
+            <div class="form-group">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" rows="5" id="message" name="message" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        var form = this;
+        var formData = new FormData(form);
+
+        fetch('/contact', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Message Sent!');
+                // Clear the form fields after successful submission
+                form.reset();
+            } else {
+                alert('Error occurred while sending the message');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error occurred while sending the message');
+        });
+    });
+});
+</script>
+
+{% endblock %}
