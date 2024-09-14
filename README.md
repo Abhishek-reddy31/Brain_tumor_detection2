@@ -40,7 +40,7 @@ To get started with this project, follow these steps:
    ##Start the Flask server:
    ```bash
    python app.py
-  ##Open your browser and navigate to http://127.0.0.1:5000/ to see the application in action.
+  Open your browser and navigate to http://127.0.0.1:5000/ to see the application in action.
 
 ## 📸 Example Usage
 
